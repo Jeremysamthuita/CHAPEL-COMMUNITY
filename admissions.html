@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissions - Chapel Community Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles - Enhanced */
+        :root {
+            --primary-color: #4CAF50; /* Green */
+            --secondary-color: #FF5252; /* Red */
+            --accent-color: #FFC107; /* Golden */
+            --light-color: #f8f9fa;
+            --text-color: #333333;
+            --white: #ffffff;
+            --dark-green: #2E7D32;
+            --light-green: #E8F5E9;
+            --light-gold: #FFF8E1;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Playfair Display', serif;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--white);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-secondary);
+            color: var(--dark-green);
+            line-height: 1.2;
+        }
+
+        p {
+            color: #444;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: capitalize;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 25px;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header Styles - Enhanced to match homepage */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 0;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.4rem;
+            margin-bottom: 0;
+            color: var(--dark-green);
+        }
+
+        .tagline {
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .main-nav ul {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .main-nav a {
+            font-weight: 500;
+            position: relative;
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Hero Section - Enhanced */
+        .hero {
+            padding: 180px 0 100px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(46, 125, 50, 0.7), rgba(46, 125, 50, 0.8)), 
+                        url('images/stationary.jpg') center/cover;
+            margin-top: 80px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: var(--white);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Header - Enhanced to match homepage */
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+
+        /* Application Process Section - Enhanced */
+        .process-section {
+            padding: 100px 0;
+            background-color: var(--light-green);
+        }
+
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            border-top: 4px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .step-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Requirements Section - Enhanced */
+        .requirements-section {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+
+        .requirements-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .requirement-card {
+            background: var(--light-green);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .requirement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .requirement-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: var(--dark-green);
+        }
+
+        .requirement-card h3 i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+
+        .requirement-card ul li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #ccc;
+            display: flex;
+            align-items: flex-start;
+            transition: padding 0.3s ease;
+        }
+
+        .requirement-card ul li:hover {
+            padding-left: 10px;
+        }
+
+        .requirement-card ul li:before {
+            content: "•";
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Application Form Section - Enhanced */
+        .form-section {
+            padding: 100px 0;
+            background-color: var(--light-gold);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 50px;
+            box-shadow: var(--box-shadow);
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23444' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+            padding-right: 40px;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        /* FAQs Section - Enhanced */
+        .faqs-section {
+            padding: 100px 0;
+            background-color: var(--light-green);
+        }
+
+        .faqs-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--white);
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #f5f5f5;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--accent-color);
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-question.active + .faq-answer {
+            padding: 0 25px 25px;
+            max-height: 500px;
+        }
+
+        /* Contact Section - Enhanced */
+        .contact-section {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info {
+            background: var(--light-green);
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            margin-bottom: 5px;
+        }
+
+        .hours-list {
+            margin-top: 10px;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        /* Footer - Enhanced to match homepage */
+        .footer {
+            background: var(--dark-green);
+            padding: 70px 0 30px;
+            color: var(--white);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-column ul li a i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .social-links-footer {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links-footer a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--white);
+        }
+
+        .social-links-footer a:hover {
+            background: var(--accent-color);
+            color: var(--dark-green);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+
+            .main-nav.active {
+                left: 0;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            
+            .section-padding {
+                padding: 70px 0;
+            }
+            
+            .form-container {
+                padding: 30px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: row;
+                gap: 15px;
+            }
+            
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .form-col {
+                min-width: 100%;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.1rem;
+            }
+            
+            .tagline {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Enhanced to match homepage -->
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo-brand">
+                <div class="logo-icon">
+                    <!-- Logo image -->
+                    <img src="images/logo.png" alt="Chapel Community Academy Logo">
+                </div>
+                <div class="logo-text">
+                    <h1>Chapel Community Academy</h1>
+                    <p class="tagline">Nurturing Global Minds</p>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="academics.html">Academics</a></li>
+                    <li><a href="admissions.html" class="active">Admissions</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="admissions.html#application-form" class="btn btn-primary">Apply Now</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section - Enhanced -->
+    <section class="hero section-padding">
+        <div class="container hero-content">
+            <h1>Begin Your Educational Journey</h1>
+            <p>Join our community of learners and discover the Chapel Community Academy difference. Our admissions process is designed to be straightforward and supportive.</p>
+            <a href="#application-form" class="btn btn-primary">Apply Online</a>
+        </div>
+    </section>
+
+    <!-- Application Process Section - Enhanced -->
+    <section class="process-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Application Process</h2>
+                <p>Our step-by-step guide to joining Chapel Community Academy</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Submit Application</h3>
+                    <p>Complete our online application form with student and parent information.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-calendar-check"></i></div>
+                    <h3>Schedule Tour</h3>
+                    <p>Visit our campus for a personalized tour and meet our faculty.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>Student Assessment</h3>
+                    <p>Age-appropriate assessment to determine placement.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Admission Decision</h3>
+                    <p>Receive notification of acceptance within 7 business days.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <h3>Complete Enrollment</h3>
+                    <p>Submit required documents and pay registration fees.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <div class="step-icon"><i class="fas fa-school"></i></div>
+                    <h3>Orientation</h3>
+                    <p>Attend new student orientation before classes begin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements Section - Enhanced -->
+    <section class="requirements-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Admission Requirements</h2>
+                <p>What you need to prepare for the application process</p>
+            </div>
+            
+            <div class="requirements-container">
+                <div class="requirements-grid">
+                    <div class="requirement-card">
+                        <h3><i class="fas fa-file"></i> Documents</h3>
+                        <ul>
+                            <li>Completed application form</li>
+                            <li>Birth certificate (copy)</li>
+                            <li>Previous school reports (if applicable)</li>
+                            <li>Immunization records</li>
+                            <li>Passport-sized photos (2)</li>
+                            <li>Parent/guardian ID copies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="requirement-card">
+                        <h3><i class="fas fa-child"></i> Age Requirements</h3>
+                        <ul>
+                            <li>Daycare: 1.5 - 3 years</li>
+                            <li>Preschool: 3 - 4 years</li>
+                            <li>Kindergarten: 4 - 5 years</li>
+                            <li>PP1: 5 - 6 years</li>
+                            <li>PP2: 6 - 7 years</li>
+                            <li>Special consideration for transfers</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="requirement-card">
+                        <h3><i class="fas fa-graduation-cap"></i> Assessment</h3>
+                        <ul>
+                            <li>Preschool: Informal readiness assessment</li>
+                            <li>Kindergarten: Basic literacy and numeracy</li>
+                            <li>PP1-PP2: Grade-level academic assessment</li>
+                            <li>Parent interview for all applicants</li>
+                            <li>Assessment scheduled after application</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section - Enhanced -->
+    <section id="application-form" class="form-section section-padding">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Online Application Form</h2>
+                    <p>Begin your journey with Chapel Community Academy</p>
+                </div>
+                
+                <form id="admission-form">
+                    <h3>Student Information</h3>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="student-firstname">First Name *</label>
+                            <input type="text" id="student-firstname" class="form-control" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="student-lastname">Last Name *</label>
+                            <input type="text" id="student-lastname" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="student-dob">Date of Birth *</label>
+                            <input type="date" id="student-dob" class="form-control" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="gender">Gender *</label>
+                            <select id="gender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="grade">Applying for Grade *</label>
+                            <select id="grade" class="form-control" required>
+                                <option value="">Select Grade Level</option>
+                                <option value="daycare">Daycare</option>
+                                <option value="preschool">Preschool</option>
+                                <option value="kindergarten">Kindergarten</option>
+                                <option value="pp1">PP1</option>
+                                <option value="pp2">PP2</option>
+                            </select>
+                        </div>
+                        <div class="form-col">
+                            <label for="start-term">Preferred Start Term *</label>
+                            <select id="start-term" class="form-control" required>
+                                <option value="">Select Term</option>
+                                <option value="january">January Intake</option>
+                                <option value="may">May Intake</option>
+                                <option value="september">September Intake</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <h3>Parent/Guardian Information</h3>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="parent-name">Full Name *</label>
+                            <input type="text" id="parent-name" class="form-control" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="relationship">Relationship to Student *</label>
+                            <select id="relationship" class="form-control" required>
+                                <option value="">Select Relationship</option>
+                                <option value="mother">Mother</option>
+                                <option value="father">Father</option>
+                                <option value="guardian">Guardian</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="parent-email">Email *</label>
+                            <input type="email" id="parent-email" class="form-control" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="parent-phone">Phone *</label>
+                            <input type="tel" id="parent-phone" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="parent-occupation">Occupation</label>
+                            <input type="text" id="parent-occupation" class="form-control">
+                        </div>
+                        <div class="form-col">
+                            <label for="parent-company">Employer/Company</label>
+                            <input type="text" id="parent-company" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <h3>Additional Information</h3>
+                    <div class="form-group">
+                        <label for="previous-school">Previous School (if applicable)</label>
+                        <input type="text" id="previous-school" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="how-heard">How did you hear about us? *</label>
+                        <select id="how-heard" class="form-control" required>
+                            <option value="">Select Option</option>
+                            <option value="friend">Friend/Family</option>
+                            <option value="website">School Website</option>
+                            <option value="social">Social Media</option>
+                            <option value="event">School Event</option>
+                            <option value="advertisement">Advertisement</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="special-needs">Does your child have any special needs or considerations we should know about?</label>
+                        <textarea id="special-needs" class="form-control"></textarea>
+                        <p class="form-note">We accommodate diverse learning needs and will contact you to discuss support options.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additional-info">Additional Information</label>
+                        <textarea id="additional-info" class="form-control"></textarea>
+                        <p class="form-note">Please share anything else you'd like us to know about your child or family.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="checkbox" id="agree-terms" required>
+                        <label for="agree-terms">I agree to the terms and conditions of the application process *</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary submit-btn">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs Section - Enhanced -->
+    <section class="faqs-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Common questions about our admissions process</p>
+            </div>
+            
+            <div class="faqs-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is the application deadline?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We have rolling admissions throughout the year, but we recommend applying at least 2 months before your desired start date. For the January intake, the priority deadline is November 30th.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is there an application fee?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, there is a non-refundable application fee of KES 1,000. This fee covers the administrative costs of processing your application and the student assessment.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does the admission process take?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>From submission of application to final decision, the process typically takes 2-3 weeks. This includes application review, student assessment, and family interview.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you offer financial aid or scholarships?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer a limited number of need-based scholarships each year. Scholarship applications are due by December 1st for the following academic year. Please contact our admissions office for details.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can my child join mid-year?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we accept mid-year transfers depending on space availability. Please contact our admissions office to discuss possibilities for your child's specific situation.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is the student assessment like?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Assessments are age-appropriate and focus on developmental readiness rather than academic testing. For younger children, it's an informal observation. For PP1 and above, it includes basic literacy and numeracy skills appropriate for their grade level.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section - Enhanced -->
+    <section class="contact-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Admissions Office</h2>
+                <p>Contact us for personalized assistance</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Location</h3>
+                            <p>Njoro, Egerton University<br>PO Box 17-20115, Nakuru, Kenya</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Phone & Email</h3>
+                            <p>Phone: 0799522418<br>Email: echapelschools@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Office Hours</h3>
+                            <ul class="hours-list">
+                                <li><span>Monday-Friday:</span> <span>8:00 AM - 5:00 PM</span></li>
+                                <li><span>Saturday:</span> <span>9:00 AM - 1:00 PM</span></li>
+                                <li><span>Sunday:</span> <span>Closed</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Upcoming Events</h3>
+                            <p><strong>Open House:</strong> October 15, 2023<br>9:00 AM - 12:00 PM</p>
+                            <p><strong>Application Deadline:</strong> November 30, 2023<br>For January Intake</p>
+                            <p><strong>Scholarship Interviews:</strong> December 5-7, 2023</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Admissions Team</h3>
+                            <p>Our dedicated admissions team is ready to assist you with any questions about our programs, application process, or financial aid options.</p>
+                            <a href="contact.html" class="btn btn-secondary" style="margin-top: 15px;">Contact Admissions</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Enhanced to match homepage -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Chapel Community Academy</h3>
+                    <p>Excellence in education since 2025. Preparing students for success in college, career, and life.</p>
+                    <div class="social-links-footer">
+                        <a href="https://www.facebook.com/profile.php?id=100070074850210"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="academics.html"><i class="fas fa-chevron-right"></i> Academics</a></li>
+                        <li><a href="admissions.html"><i class="fas fa-chevron-right"></i> Admissions</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Programs</h3>
+                    <ul>
+                        <li><a href="academics.html#Daycare"><i class="fas fa-chevron-right"></i> Daycare</a></li>
+                        <li><a href="academics.html#Kindergarten"><i class="fas fa-chevron-right"></i> Kindergarten</a></li>
+                        <li><a href="academics.html#PP1-PP2"><i class="fas fa-chevron-right"></i> PP1</a></li>
+                        <li><a href="academics.html#PP1-PP2"><i class="fas fa-chevron-right"></i> PP2</a></li>
+                        <li><a href="academics.html#After School Programs"><i class="fas fa-chevron-right"></i> After School Programs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><a href="contact.html#map"><i class="fas fa-map-marker-alt"></i> Njoro, Egerton University</a></li>
+                        <li><a href="tel:+254799522418"><i class="fas fa-phone"></i> 0799522418</a></li>
+                        <li><a href="mailto:echapelschools@gmail.com"><i class="fas fa-envelope"></i> echapelschools@gmail.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 5:00 PM</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Chapel Community Academy. All Rights Reserved. | Designed with <i class="fas fa-heart"></i> for Future Leaders <b> by Eng. Jeremiah Thuita (DCE)</b></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mainNav = document.querySelector('.main-nav');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-times');
+                icon.classList.toggle('fa-bars');
+            });
+
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.main-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    }
+                });
+            });
+
+            // Header Scroll Effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // FAQ Accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+            
+            // Form Submission
+            const admissionForm = document.getElementById('admission-form');
+            
+            admissionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // In a real application, you would submit the form data to a server
+                // Here we'll just show a confirmation message
+                
+                alert('Thank you for your application! Our admissions team will contact you within 2 business days.');
+                admissionForm.reset();
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

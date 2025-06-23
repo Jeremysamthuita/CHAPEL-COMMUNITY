@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Programs - Chapel Community Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4CAF50; /* Green */
+            --secondary-color: #FF5252; /* Red */
+            --accent-color: #FFC107; /* Golden */
+            --light-color: #f8f9fa;
+            --text-color: #333333;
+            --white: #ffffff;
+            --dark-green: #2E7D32;
+            --light-green: #E8F5E9;
+            --light-gold: #FFF8E1;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Playfair Display', serif;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--white);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-secondary);
+            color: var(--dark-green);
+            line-height: 1.2;
+        }
+
+        p {
+            color: #444;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: capitalize;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 25px;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+
+        .btn-download {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn-download:hover {
+            background-color: #e6b301;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            color: var(--dark-green);
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .main-nav ul {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .main-nav a {
+            font-weight: 500;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            background: none;
+            border: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)), 
+                        url('https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            margin-top: 90px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-green);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: #444;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        /* Grade Levels Section */
+        .levels-section {
+            padding: 100px 0;
+            background-color: var(--light-green);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .level-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: var(--box-shadow);
+            border-top: 4px solid var(--primary-color);
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .level-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .level-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .level-icon {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        .level-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark-green);
+        }
+
+        .level-card ul {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .level-card ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .level-card ul li:before {
+            content: "✓";
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Curriculum Section */
+        .curriculum-section {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+
+        .tabs-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tabs-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 25px;
+            background: var(--light-green);
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .course-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: var(--box-shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .course-table th {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+        }
+
+        .course-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .course-table tr:nth-child(even) {
+            background-color: var(--light-green);
+        }
+
+        .course-table tr:hover {
+            background-color: #dcedc8;
+        }
+
+        /* Extracurricular Section */
+        .extracurricular-section {
+            padding: 100px 0;
+            background-color: var(--light-gold);
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .activity-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .activity-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .activity-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .activity-content {
+            padding: 25px;
+        }
+
+        .activity-content h3 {
+            margin-bottom: 15px;
+            color: var(--dark-green);
+        }
+
+        .activity-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .activity-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+        }
+
+        /* Brochures Section */
+        .brochures-section {
+            padding: 100px 0;
+            background-color: var(--light-green);
+        }
+
+        .brochures-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .brochure-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .brochure-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .brochure-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .brochure-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .brochure-card h3 {
+            margin-bottom: 15px;
+        }
+
+        .file-size {
+            color: #666;
+            margin: 10px 0 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Special Programs Section */
+        .special-programs {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+
+        .programs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .program-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .program-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .program-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .program-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-green);
+        }
+
+        .program-details {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .program-details li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .program-details li:before {
+            content: "•";
+            color: var(--accent-color);
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-green);
+            padding: 70px 0 30px;
+            color: var(--white);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-column ul li a i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .social-links-footer {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links-footer a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--white);
+        }
+
+        .social-links-footer a:hover {
+            background: var(--accent-color);
+            color: var(--dark-green);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-nav {
+                position: fixed;
+                top: 90px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 90px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+                box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+                overflow-y: auto;
+            }
+
+            .main-nav.active {
+                left: 0;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                gap: 30px;
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            .main-nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .main-nav a {
+                font-size: 1.2rem;
+                display: block;
+                padding: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            
+            .section-padding {
+                padding: 70px 0;
+            }
+
+            .tabs-header {
+                gap: 8px;
+            }
+
+            .tab-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .logo-brand {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .main-nav {
+                top: 140px;
+                height: calc(100vh - 140px);
+            }
+            
+            .hero {
+                margin-top: 140px;
+                padding: 100px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .tabs-header {
+                flex-direction: column;
+            }
+
+            .course-table th, 
+            .course-table td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo-brand">
+                <div class="logo-icon">
+                    <img src="images/logo.png" alt="Chapel Community Academy Logo">
+                </div>
+                <div class="logo-text">
+                    <h1>Chapel Community Academy</h1>
+                    <p class="tagline">Nurturing Global Minds</p>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="academics.html" class="active">Academics</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="admissions.html#application-form" class="btn btn-primary">Apply Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero section-padding">
+        <div class="container hero-content">
+            <h1>Academic Excellence</h1>
+            <p>Discover our comprehensive curriculum designed to inspire, challenge, and prepare students for a successful future.</p>
+        </div>
+    </section>
+
+    <!-- Grade Levels Section -->
+    <section class="levels-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Grade Levels Offered</h2>
+                <p>Comprehensive education from early childhood through primary years</p>
+            </div>
+            
+            <div class="levels-grid">
+                <div class="level-card" id="Daycare">
+                    <div class="level-icon">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h3>Daycare & Preschool</h3>
+                    <p>Ages 1.5 - 3 years</p>
+                    <ul>
+                        <li>Early childhood development</li>
+                        <li>Play-based learning</li>
+                        <li>Social skills development</li>
+                        <li>Creative expression</li>
+                        <li>Basic literacy & numeracy</li>
+                    </ul>
+                </div>
+                
+                <div class="level-card" id="Kindergarten">
+                    <div class="level-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>Kindergarten</h3>
+                    <p>Ages 4 - 5 years</p>
+                    <ul>
+                        <li>Phonics and reading readiness</li>
+                        <li>Basic mathematics</li>
+                        <li>Science exploration</li>
+                        <li>Social studies</li>
+                        <li>Arts and crafts</li>
+                    </ul>
+                </div>
+                
+                <div class="level-card" id="PP1-PP2">
+                    <div class="level-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Primary School (PP1 - PP2)</h3>
+                    <p>Ages 6 - 8 years</p>
+                    <ul>
+                        <li>Core curriculum subjects</li>
+                        <li>Language arts</li>
+                        <li>Mathematics</li>
+                        <li>Science and technology</li>
+                        <li>Social studies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section class="curriculum-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Curriculum Overview</h2>
+                <p>Detailed course list by grade level</p>
+            </div>
+            
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="preschool">Preschool</button>
+                    <button class="tab-btn" data-tab="kindergarten">Kindergarten</button>
+                    <button class="tab-btn" data-tab="pp1">PP1</button>
+                    <button class="tab-btn" data-tab="pp2">PP2</button>
+                </div>
+                
+                <div class="tab-content active" id="preschool-tab">
+                    <h3 class="text-center">Preschool Curriculum (Ages 1.5-3)</h3>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Language Development</td>
+                                <td>Basic vocabulary, storytelling, phonics introduction</td>
+                                <td>30 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Early Math Concepts</td>
+                                <td>Counting, shapes, sorting, patterns</td>
+                                <td>30 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Creative Arts</td>
+                                <td>Drawing, painting, crafts, music appreciation</td>
+                                <td>45 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Physical Development</td>
+                                <td>Gross motor skills, coordination activities</td>
+                                <td>30 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Social Skills</td>
+                                <td>Sharing, cooperation, emotional awareness</td>
+                                <td>Integrated throughout day</td>
+                                <td>Daily</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-content" id="kindergarten-tab">
+                    <h3 class="text-center">Kindergarten Curriculum (Ages 4-5)</h3>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Language Arts</td>
+                                <td>Phonics, reading readiness, storytelling</td>
+                                <td>45 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Mathematics</td>
+                                <td>Numbers, basic operations, measurement</td>
+                                <td>45 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Science Exploration</td>
+                                <td>Nature studies, simple experiments</td>
+                                <td>30 mins/day</td>
+                                <td>3 times/week</td>
+                            </tr>
+                            <tr>
+                                <td>Social Studies</td>
+                                <td>Community, culture, basic geography</td>
+                                <td>30 mins/day</td>
+                                <td>3 times/week</td>
+                            </tr>
+                            <tr>
+                                <td>Creative Expression</td>
+                                <td>Art, music, drama activities</td>
+                                <td>45 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-content" id="pp1-tab">
+                    <h3 class="text-center">PP1 Curriculum (Ages 6-7)</h3>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>English Language</td>
+                                <td>Reading, writing, grammar, comprehension</td>
+                                <td>60 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Mathematics</td>
+                                <td>Arithmetic, problem-solving, geometry</td>
+                                <td>60 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Science</td>
+                                <td>Life science, physical science, earth science</td>
+                                <td>45 mins/day</td>
+                                <td>4 times/week</td>
+                            </tr>
+                            <tr>
+                                <td>Social Studies</td>
+                                <td>History, geography, civics</td>
+                                <td>45 mins/day</td>
+                                <td>4 times/week</td>
+                            </tr>
+                            <tr>
+                                <td>Kiswahili</td>
+                                <td>Language fundamentals, conversation</td>
+                                <td>45 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-content" id="pp2-tab">
+                    <h3 class="text-center">PP2 Curriculum (Ages 7-8)</h3>
+                    <table class="course-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>English Language</td>
+                                <td>Advanced reading, composition, grammar</td>
+                                <td>60 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Mathematics</td>
+                                <td>Fractions, decimals, measurements, geometry</td>
+                                <td>60 mins/day</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td>Science</td>
+                                <td>Biology, chemistry, physics concepts</td>
+                                <td>60 mins/day</td>
+                                <td>4 times/week</td>
+                            </tr>
+                            <tr>
+                                <td>Social Studies</td>
+                                <td>Kenyan history, world cultures, government</td>
+                                <td>60 mins/day</td>
+                                <td>4 times/week</td>
+                            </tr>
+                            <tr>
+                                <td>Creative Arts</td>
+                                <td>Art, music, drama, and movement</td>
+                                <td>60 mins/day</td>
+                                <td>3 times/week</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extracurricular Section -->
+    <section class="extracurricular-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Extracurricular Activities</h2>
+                <p>Enriching programs beyond the classroom</p>
+            </div>
+            
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1542621334-a254cf47733d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="activity-content">
+                        <h3>Sports & Athletics</h3>
+                        <p>Develop teamwork, discipline, and physical fitness through various sports activities.</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-users"></i> Ages 4+</span>
+                            <span><i class="fas fa-clock"></i> 2-3 hrs/week</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="activity-content">
+                        <h3>Music & Performing Arts</h3>
+                        <p>Explore musical instruments, choir, dance, and drama to foster creativity.</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-users"></i> Ages 3+</span>
+                            <span><i class="fas fa-clock"></i> 1-2 hrs/week</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1543286386-713bdd548da4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="activity-content">
+                        <h3>STEM Club</h3>
+                        <p>Hands-on science experiments, coding basics, and engineering challenges.</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-users"></i> Ages 5+</span>
+                            <span><i class="fas fa-clock"></i> 2 hrs/week</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brochures Section -->
+    <section class="brochures-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Downloadable Brochures</h2>
+                <p>Access detailed information about our programs</p>
+            </div>
+            
+            <div class="brochures-container">
+                <div class="brochure-card">
+                    <div class="brochure-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Academic Program Guide</h3>
+                    <p>Complete overview of our curriculum and academic approach</p>
+                    <div class="file-size">PDF - 2.4 MB</div>
+                    <a href="#" class="btn-download">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+                
+                <div class="brochure-card">
+                    <div class="brochure-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Extracurricular Activities</h3>
+                    <p>Detailed information on clubs, sports, and special programs</p>
+                    <div class="file-size">PDF - 1.8 MB</div>
+                    <a href="#" class="btn-download">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+                
+                <div class="brochure-card">
+                    <div class="brochure-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Academic Calendar</h3>
+                    <p>Important dates, holidays, and events for the current year</p>
+                    <div class="file-size">PDF - 0.9 MB</div>
+                    <a href="#" class="btn-download">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Programs Section -->
+    <section class="special-programs section-padding" id="After School Programs">
+        <div class="container">
+            <div class="section-header">
+                <h2>Special Programs</h2>
+                <p>Unique learning opportunities for our students</p>
+            </div>
+            
+            <div class="programs-container">
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <h3>Global Citizenship</h3>
+                    <p>Developing cultural awareness and international perspectives.</p>
+                    <div class="program-details">
+                        <ul>
+                            <li>Cultural exchange programs</li>
+                            <li>International pen pals</li>
+                            <li>World festivals celebration</li>
+                            <li>Language immersion days</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Environmental Stewardship</h3>
+                    <p>Teaching sustainability and environmental responsibility.</p>
+                    <div class="program-details">
+                        <ul>
+                            <li>School garden project</li>
+                            <li>Recycling initiatives</li>
+                            <li>Nature conservation field trips</li>
+                            <li>Eco-club activities</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Digital Literacy</h3>
+                    <p>Preparing students for the digital age with essential tech skills.</p>
+                    <div class="program-details">
+                        <ul>
+                            <li>Coding for kids</li>
+                            <li>Digital safety workshops</li>
+                            <li>Educational technology integration</li>
+                            <li>Robotics club</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+
+    <!-- Footer -->
+     <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Chapel Community Academy</h3>
+                    <p>Excellence in education since 2005. Preparing students for success in college, career, and life.</p>
+                    <div class="social-links-footer">
+                        <a href="https://www.facebook.com/profile.php?id=100070074850210"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="academics.html"><i class="fas fa-chevron-right"></i> Academics</a></li>
+                        <li><a href="admissions.html"><i class="fas fa-chevron-right"></i> Admissions</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Programs</h3>
+                    <ul>
+                        <li><a href="academics.html#Daycare"><i class="fas fa-chevron-right"></i> Daycare</a></li>
+                        <li><a href="academics.html#Kindergarten"><i class="fas fa-chevron-right"></i> Kindergarten</a></li>
+                        <li><a href="academics.html#PP1-PP2"><i class="fas fa-chevron-right"></i> PP1</a></li>
+                        <li><a href="academics.html#PP1-PP2"><i class="fas fa-chevron-right"></i> PP2</a></li>
+                        <li><a href="academics.html#After School Programs"><i class="fas fa-chevron-right"></i> After School Programs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><a href="contact.html#map"><i class="fas fa-map-marker-alt"></i> Njoro, Egerton University</a></li>
+                        <li><a href="tel:+254799522418"><i class="fas fa-phone"></i> 0799522418</a></li>
+                        <li><a href="mailto:echapelschools@gmail.com"><i class="fas fa-envelope"></i> echapelschools@gmail.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 5:00 PM</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Chapel Community Academy. All Rights Reserved. | Designed with <i class="fas fa-heart"></i> for Future Leaders</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Show corresponding tab content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId + '-tab').classList.add('active');
+                });
+            });
+            
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mainNav = document.querySelector('.main-nav');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.main-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    }
+                });
+            });
+
+            // Header Scroll Effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Animation on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.level-card, .activity-card, .brochure-card, .program-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

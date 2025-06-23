@@ -1,0 +1,12 @@
+/* TEAM */
+  Founder: AIC Egerton Chapel
+  Developer: Eng. Jeremiah Thuita
+  Designer: Eng. Jeremiah Thuita
+
+/* THANKS */
+  Netlify, Google Fonts, Font Awesome
+
+/* SITE */
+  Last update: 2025
+  Standards: HTML5, CSS3
+  Components: React, Webpack

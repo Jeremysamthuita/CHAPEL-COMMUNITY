@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Chapel Community Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4CAF50; /* Green */
+            --secondary-color: #FF5252; /* Red */
+            --accent-color: #FFC107; /* Golden */
+            --light-color: #f8f9fa;
+            --text-color: #333333;
+            --white: #ffffff;
+            --dark-green: #2E7D32;
+            --light-green: #E8F5E9;
+            --light-gold: #FFF8E1;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Playfair Display', serif;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--white);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-secondary);
+            color: var(--dark-green);
+            line-height: 1.2;
+        }
+
+        p {
+            color: #444;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: capitalize;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 25px;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+
+        .section-padding {
+            padding: 5rem 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.25rem 0;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            padding: 0.9375rem 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.9375rem;
+        }
+
+        .logo-icon {
+            width: 3.125rem;
+            height: 3.125rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            color: var(--dark-green);
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .main-nav ul {
+            display: flex;
+            align-items: center;
+            gap: 1.875rem;
+        }
+
+        .main-nav a {
+            font-weight: 500;
+            position: relative;
+            color: var(--text-color);
+            padding: 0.5rem 0;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 11.25rem 0 6.25rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(255, 255, 255, 0.719), rgba(255, 255, 255, 0.658)), 
+                        url('images/coffee.jpeg') center/cover;
+            margin-top: 5.625rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.25rem;
+            color: var(--dark-green);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: #444;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--light-green);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4.375rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.25rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -0.625rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5rem;
+            height: 0.25rem;
+            background: var(--accent-color);
+            border-radius: 0.125rem;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Contact Info Card */
+        .contact-info-card {
+            background: var(--white);
+            border-radius: 0.625rem;
+            padding: 2.5rem 1.875rem;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-top: 0.25rem solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-0.625rem);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+        }
+
+        .contact-info-card h3 {
+            margin-bottom: 1.25rem;
+            color: var(--dark-green);
+        }
+
+        /* Department Contacts */
+        .department-contacts {
+            background: var(--white);
+            border-radius: 0.625rem;
+            padding: 2.5rem 1.875rem;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease;
+            border-top: 0.25rem solid var(--accent-color);
+        }
+
+        .department-contacts:hover {
+            transform: translateY(-0.625rem);
+        }
+
+        .department-contacts h3 {
+            text-align: center;
+            margin-bottom: 1.875rem;
+            color: var(--dark-green);
+        }
+
+        .department-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
+            gap: 1.25rem;
+        }
+
+        .department-item {
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            background-color: var(--light-green);
+            transition: all 0.3s ease;
+        }
+
+        .department-item:hover {
+            background-color: var(--light-gold);
+            transform: translateX(0.3125rem);
+        }
+
+        .department-name {
+            font-weight: 600;
+            margin-bottom: 0.625rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            color: var(--dark-green);
+        }
+
+        .department-name i {
+            color: var(--accent-color);
+        }
+
+        .department-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.625rem;
+        }
+
+        .contact-method i {
+            color: var(--primary-color);
+            min-width: 1.25rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 0 0 6.25rem;
+            background-color: var(--light-green);
+        }
+
+        .map-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 0.625rem;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            height: 31.25rem;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Contact Form */
+        .form-section {
+            background-color: var(--white);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 0.625rem;
+            padding: 3.125rem;
+            box-shadow: var(--box-shadow);
+            border: 0.0625rem solid #eee;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-header h2 {
+            margin-bottom: 0.9375rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5625rem;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-col {
+            flex: 1;
+            min-width: 15.625rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 0.9375rem;
+            border: 0.0625rem solid #ddd;
+            border-radius: 0.3125rem;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 0.1875rem rgba(76, 175, 80, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 9.375rem;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.9375rem;
+            font-size: 1.1rem;
+            margin-top: 1.25rem;
+        }
+
+        /* Social Media Section */
+        .social-section {
+            padding: 6.25rem 0;
+            background-color: var(--light-gold);
+        }
+
+        .social-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .social-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.875rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.9375rem;
+            width: 9.375rem;
+            padding: 1.875rem 1.25rem;
+            border-radius: 0.625rem;
+            background: var(--white);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            transform: translateY(-0.625rem);
+            box-shadow: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
+        }
+
+        .social-icon {
+            width: 4.375rem;
+            height: 4.375rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .facebook {
+            background: #3b5998;
+        }
+
+        .instagram {
+            background: #e1306c;
+        }
+
+        .linkedin {
+            background: #0077b5;
+        }
+
+        .social-name {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-green);
+            padding: 4.375rem 0 1.875rem;
+            color: var(--white);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3.125rem;
+        }
+
+        .footer-column h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5625rem;
+            position: relative;
+            padding-bottom: 0.9375rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 3.125rem;
+            height: 0.1875rem;
+            background: var(--accent-color);
+            border-radius: 0.125rem;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.9375rem;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-column ul li a i {
+            margin-right: 0.625rem;
+            color: var(--accent-color);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+            transform: translateX(0.3125rem);
+        }
+
+        .social-links-footer {
+            display: flex;
+            gap: 0.9375rem;
+            margin-top: 1.25rem;
+        }
+
+        .social-links-footer a {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--white);
+        }
+
+        .social-links-footer a:hover {
+            background: var(--accent-color);
+            color: var(--dark-green);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.875rem;
+            border-top: 0.0625rem solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-nav {
+                position: fixed;
+                top: 5.625rem;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 5.625rem);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 3rem;
+                transition: var(--transition);
+                box-shadow: 0.3125rem 0 0.9375rem rgba(0, 0, 0, 0.1);
+                z-index: 999;
+                overflow-y: auto;
+            }
+
+            .main-nav.active {
+                left: 0;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                gap: 1.25rem;
+                width: 100%;
+                padding: 0 2rem;
+            }
+
+            .main-nav li {
+                width: 100%;
+            }
+
+            .main-nav a {
+                display: block;
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border-bottom: 0.0625rem solid rgba(0,0,0,0.05);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .map-container {
+                height: 25rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 9.375rem 0 5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            
+            .section-padding {
+                padding: 4.375rem 0;
+            }
+            
+            .form-container {
+                padding: 1.875rem;
+            }
+            
+            .department-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-container {
+                height: 20rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            html {
+                font-size: 14px;
+            }
+            
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 0.9375rem;
+            }
+            
+            .hero {
+                padding: 8.125rem 0 3.75rem;
+                margin-top: 4.375rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .form-col {
+                min-width: 100%;
+            }
+            
+            .social-links {
+                gap: 0.9375rem;
+            }
+            
+            .social-link {
+                width: 8.125rem;
+                padding: 1.25rem 0.9375rem;
+            }
+            
+            .contact-info-card {
+                padding: 1.875rem 1.25rem;
+            }
+            
+            .map-container {
+                height: 15rem;
+            }
+            
+            .footer-grid {
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .social-link {
+                width: 100%;
+                max-width: 15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo-brand">
+                <div class="logo-icon"><img src="images/logo.png" alt="Chapel Community Academy Logo"></div>
+                <div class="logo-text">
+                    <h1>Chapel Community Academy</h1>
+                    <p class="tagline">Nurturing Global Minds</p>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="academics.html">Academics</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li><a href="admissions.html#application-form" class="btn btn-primary">Apply Now</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero section-padding">
+        <div class="container hero-content">
+            <h1>Get In Touch With Us</h1>
+            <p>We're here to answer any questions you may have about Chapel Community Academy. Reach out to us and we'll respond as soon as we can.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Information</h2>
+                <p>Multiple ways to connect with our academy</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Our Location</h3>
+                    <p>Njoro, Egerton University<br>PO Box 17-20115, Nakuru, Kenya</p>
+                    <a href="#map" class="btn btn-secondary" style="margin-top: 1.25rem;">View on Map</a>
+                </div>
+                
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>General Inquiries:<br>info@chapelacademy.edu</p>
+                    <p>Admissions:<br>admissions@chapelacademy.edu</p>
+                    <p>Support:<br>support@chapelacademy.edu</p>
+                </div>
+                
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Call Us</h3>
+                    <p>Main Office:<br>+254 799 522 418</p>
+                    <p>Admissions Office:<br>+254 722 123 456</p>
+                    <p>Emergency:<br>+254 733 987 654</p>
+                    <p style="margin-top: 0.9375rem;">Mon-Fri: 8:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Department Contacts -->
+    <section class="contact-section section-padding" style="background-color: var(--light-gold);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Department Contacts</h2>
+                <p>Reach out to specific departments</p>
+            </div>
+            
+            <div class="department-contacts">
+                <h3>Key Departments</h3>
+                <div class="department-list">
+                    <div class="department-item">
+                        <div class="department-name">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Academics</span>
+                        </div>
+                        <div class="department-contact">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>academics@chapelacademy.edu</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <span>+254799522418</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="department-item">
+                        <div class="department-name">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Admissions</span>
+                        </div>
+                        <div class="department-contact">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>admissions@chapelacademy.edu</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <span>+254799522418</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="department-item">
+                        <div class="department-name">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Finance</span>
+                        </div>
+                        <div class="department-contact">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>finance@chapelacademy.edu</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <span>+254799522418</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="department-item">
+                        <div class="department-name">
+                            <i class="fas fa-heart"></i>
+                            <span>Student Services</span>
+                        </div>
+                        <div class="department-contact">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>services@chapelacademy.edu</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <span>+254799522418</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="department-item">
+                        <div class="department-name">
+                            <i class="fas fa-bus"></i>
+                            <span>Transportation</span>
+                        </div>
+                        <div class="department-contact">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>transport@chapelacademy.edu</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <span>+254799522418</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="department-item">
+                        <div class="department-name">
+                            <i class="fas fa-utensils"></i>
+                            <span>Cafeteria</span>
+                        </div>
+                        <div class="department-contact">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>cafeteria@chapelacademy.edu</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <span>+254799522418</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="map-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Location</h2>
+                <p>Visit us at our campus in Njoro, Egerton University</p>
+            </div>
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d910.8917113465247!2d35.94359280167273!3d-0.3685348942322173!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182987bf970d254d%3A0x385834a695a103c7!2sA.I.C%20Egerton%20Chapel!5e1!3m2!1sen!2ske!4v1750342780052!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="form-section section-padding">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Send Us a Message</h2>
+                    <p>Have questions? We're here to help!</p>
+                </div>
+                
+                <form id="contact-form">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department">Department (Optional)</label>
+                        <select id="department" class="form-control">
+                            <option value="">Select Department</option>
+                            <option value="admissions">Admissions</option>
+                            <option value="academics">Academics</option>
+                            <option value="finance">Finance</option>
+                            <option value="services">Student Services</option>
+                            <option value="transport">Transportation</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message *</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-section section-padding">
+        <div class="container">
+            <div class="social-container">
+                <div class="social-header">
+                    <h2>Connect With Us</h2>
+                    <p>Follow us on social media for updates and news</p>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=100070074850210" class="social-link" aria-label="Facebook">
+                        <div class="social-icon facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <span class="social-name">Facebook</span>
+                    </a>
+                    
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <div class="social-icon instagram">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <span class="social-name">Instagram</span>
+                    </a>
+                    
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <div class="social-icon linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <span class="social-name">LinkedIn</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Chapel Community Academy</h3>
+                    <p>Excellence in education since 2025. Preparing students for success in college, career, and life.</p>
+                    <div class="social-links-footer">
+                        <a href="https://www.facebook.com/profile.php?id=100070074850210" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="academics.html"><i class="fas fa-chevron-right"></i> Academics</a></li>
+                        <li><a href="admissions.html"><i class="fas fa-chevron-right"></i> Admissions</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                 <div class="footer-column">
+                    <h3>Programs</h3>
+                    <ul>
+                        <li><a href="academics.html#Daycare"><i class="fas fa-chevron-right"></i> Daycare</a></li>
+                        <li><a href="academics.html#Kindergarten"><i class="fas fa-chevron-right"></i> Kindergarten</a></li>
+                        <li><a href="academics.html#PP1-PP2"><i class="fas fa-chevron-right"></i> PP1</a></li>
+                        <li><a href="academics.html#PP1-PP2"><i class="fas fa-chevron-right"></i> PP2</a></li>
+                        <li><a href="academics.html#After School Programs"><i class="fas fa-chevron-right"></i> After School Programs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><a href="#map"><i class="fas fa-map-marker-alt"></i> Njoro, Egerton University</a></li>
+                        <li><a href="tel:+254799522418"><i class="fas fa-phone"></i> 0799522418</a></li>
+                        <li><a href="mailto:echapelschools@gmail.com"><i class="fas fa-envelope"></i> echapelschools@gmail.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 5:00 PM</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Chapel Community Academy. All Rights Reserved. | Designed with <i class="fas fa-heart"></i> for Future Leaders by <b>Eng. Jeremiah Thuita (DCE)</b></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mainNav = document.querySelector('.main-nav');
+            const menuIcon = mobileMenuBtn.querySelector('i');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                if (mainNav.classList.contains('active')) {
+                    menuIcon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.main-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        menuIcon.classList.replace('fa-times', 'fa-bars');
+                    }
+                });
+            });
+
+            // Header Scroll Effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Form Submission
+            const contactForm = document.getElementById('contact-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Form validation
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                if (!name || !email || !subject || !message) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Simple email validation
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                
+                // In a real application, you would submit the form data to a server
+                // Here we'll just show a confirmation message
+                
+                alert('Thank you for your message! We will respond to your inquiry within 24-48 hours.');
+                contactForm.reset();
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target) && mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    menuIcon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

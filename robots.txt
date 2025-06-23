@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+
+Sitemap: https://ecschools.netlify.app/sitemap.xml
+Sitemap: https://ecschools.netlify.app/sitemap-index.xml
