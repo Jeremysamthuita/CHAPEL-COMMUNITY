@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Admission Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Color Scheme */
+        :root {
+            --primary-green: #2e8b57;
+            --dark-green: #1e5a3a;
+            --light-green: #e8f5e9;
+            --golden-yellow: #ffd700;
+            --dark-gold: #daa520;
+            --red: #d32f2f;
+            --dark-red: #b71c1c;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+        }
+        
+        .btn-secondary {
+            background-color: var(--golden-yellow);
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--dark-gold);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-green);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--red);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: var(--dark-red);
+        }
+        
+        /* Form Container */
+        #app-form-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        #app-form {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .close-form {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #7f8c8d;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .close-form:hover {
+            color: var(--red);
+        }
+        
+        /* Form Sections */
+        .form-section {
+            padding: 30px;
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .section-header h2 {
+            color: var(--primary-green);
+            margin-bottom: 5px;
+        }
+        
+        .section-header p {
+            color: #7f8c8d;
+        }
+        
+        /* Form Layout */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px 15px;
+        }
+        
+        .form-col {
+            flex: 1;
+            min-width: 250px;
+            padding: 0 10px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: var(--red);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.2);
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 1em;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-note {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        /* Navigation Buttons */
+        .form-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        /* Preview Section */
+        #preview-section {
+            background-color: #f9f9f9;
+        }
+        
+        .preview-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-green);
+        }
+        
+        .school-info {
+            text-align: left;
+            flex: 1;
+        }
+        
+        .school-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .school-logo {
+            max-width: 80px;
+            margin-right: 20px;
+        }
+        
+        .school-title {
+            flex: 1;
+        }
+        
+        .school-title h2 {
+            color: var(--primary-green);
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .school-title p {
+            color: #7f8c8d;
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+        
+        .coat-of-arms {
+            max-width: 70px;
+            margin-left: 20px;
+        }
+        
+        .school-contact {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .contact-item {
+            margin-right: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .preview-section {
+            margin-bottom: 30px;
+        }
+        
+        .preview-section h3 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 18px;
+        }
+        
+        .preview-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        
+        .preview-col {
+            flex: 1;
+            min-width: 200px;
+            padding: 5px;
+        }
+        
+        .preview-label {
+            font-weight: 600;
+            color: #7f8c8d;
+        }
+        
+        .official-use {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--light-green);
+            border-radius: 5px;
+            border: 1px solid var(--primary-green);
+        }
+        
+        .official-use h3 {
+            color: var(--dark-green);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .signature-line {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .signature-box {
+            width: 200px;
+            border-top: 1px solid #333;
+            padding-top: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        /* Parent/Guardian Toggle */
+        .parent-toggle {
+            margin-bottom: 20px;
+        }
+        
+        .toggle-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .toggle-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        .toggle-option input {
+            margin-right: 8px;
+        }
+        
+        /* Additional Parent Section */
+        .additional-parent {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--light-green);
+            border-radius: 5px;
+            border: 1px dashed var(--primary-green);
+            display: none;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Form Messages */
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .form-col, .preview-col {
+                flex: 100%;
+            }
+            
+            .preview-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .school-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .school-logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .coat-of-arms {
+                margin: 20px auto 0;
+            }
+            
+            .school-contact {
+                justify-content: center;
+            }
+            
+            .contact-item {
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+            
+            .signature-line {
+                justify-content: center;
+            }
+            
+            .signature-box {
+                margin: 0 10px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .form-section {
+                padding: 20px 15px;
+            }
+            
+            .toggle-options {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .form-nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-nav button {
+                width: 100%;
+            }
+        }
+        /* Application Header */
+        .application-header {
+            background-color: #e6ffed;
+            color: rgb(12, 12, 12);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .school-branding {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+            min-width: 250px;
+        }
+        
+        .school-branding img {
+            height: 80px;
+            margin-right: 20px;
+        }
+        
+        .school-titles {
+            text-align: left;
+        }
+        
+        .school-titles h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .school-titles p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .government-branding {
+            display: flex;
+            align-items: center;
+        }
+        
+        .government-branding img {
+            height: 70px;
+            margin-left: 20px;
+        }
+        
+        .form-title {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .form-title h2 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            .school-branding {
+                margin-bottom: 15px;
+                justify-content: center;
+            }
+            
+            .government-branding {
+                margin-top: 15px;
+                justify-content: center;
+            }
+            
+            .school-branding img {
+                margin-right: 10px;
+                height: 60px;
+            }
+            
+            .government-branding img {
+                margin-left: 10px;
+                height: 50px;
+            }
+            
+            .school-titles h1 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Button to trigger the form (this would be in your main website) -->
+    <div class="container" style="text-align: center; padding: 50px;">
+        <button id="open-form-btn" class="btn btn-primary">Apply Now</button>
+    </div>
+
+
+    <!-- Application Form Container (hidden initially) -->
+    <div id="app-form-container">
+        <div id="app-form">
+            <span class="close-form">&times;</span>
+                <!-- Application Header -->
+            <div class="application-header">
+                <div class="header-content">
+                    <div class="school-branding">
+                        <img src="images/logo.png" alt="School Logo" class="school-logo">
+                        <div class="school-titles">
+                            <h1>CHAPEL COMMUNITY ACADEMY</h1>
+                            <p>Excellence in Education | P.O. Box 12345, Nairobi, Kenya</p>
+                            <p>Phone: +254 700 000000 | Email: info@chapelacademy.edu</p>
+                        </div>
+                    </div>
+                    <div class="government-branding">
+                        <img src="kenyanshield.png" alt="Coat of Arms" class="coat-of-arms">
+                    </div>
+                </div>
+                <div class="form-title">
+                    <h2>STUDENT ADMISSION APPLICATION FORM</h2>
+                    <p>Please fill in all sections carefully</p>
+                </div>
+            </div>
+
+            <!-- Student Information Section -->
+            <div id="student-section" class="form-section active">
+                <div class="section-header">
+                    <h2>Student Information</h2>
+                    <p>Please provide details about the student applying for admission</p>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="student-firstname" class="required-field">First Name</label>
+                            <input type="text" id="student-firstname" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="student-lastname" class="required-field">Last Name</label>
+                            <input type="text" id="student-lastname" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="student-dob" class="required-field">Date of Birth</label>
+                            <input type="date" id="student-dob" class="form-control" required>
+                            <p class="form-note">Student must be at least 1 month old</p>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="gender" class="required-field">Gender</label>
+                            <select id="gender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="grade" class="required-field">Grade Applying For</label>
+                            <select id="grade" class="form-control" required>
+                                <option value="">Select Grade</option>
+                                <option value="Pre-School">Pre-School</option>
+                                <option value="Daycare">Daycare</option>
+                                <option value="PP1">PP1</option>
+                                <option value="PP2">PP2</option>
+                                <option value="Kindergarten">Kindergarten</option>
+                                <option value="Grade 1">Grade 1</option>
+                                <option value="Grade 2">Grade 2</option>
+                                <option value="Grade 3">Grade 3</option>
+                                <option value="Grade 4">Grade 4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="commencing-year" class="required-field">Commencing Year</label>
+                            <select id="commencing-year" class="form-control" required>
+                                <!-- Years will be populated by JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="commencing-term" class="required-field">Commencing Term</label>
+                            <select id="commencing-term" class="form-control" required>
+                                <option value="">Select Term</option>
+                                <option value="Term 1">Term 1</option>
+                                <option value="Term 2">Term 2</option>
+                                <option value="Term 3">Term 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="commencing-month" class="required-field">Commencing Month</label>
+                            <select id="commencing-month" class="form-control" required>
+                                <option value="">Select Month</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-nav">
+                    <div></div> <!-- Empty div for spacing -->
+                    <button class="btn btn-primary next-section" data-next="parent-section">Next: Parent Information <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Parent/Guardian Information Section -->
+            <div id="parent-section" class="form-section">
+                <div class="section-header">
+                    <h2>Parent/Guardian Information</h2>
+                    <p>Please provide details about the parent or guardian</p>
+                </div>
+                
+                <div class="parent-toggle">
+                    <label>Parent/Guardian Status</label>
+                    <div class="toggle-options">
+                        <div class="toggle-option">
+                            <input type="radio" id="parent-status-single" name="parent-status" value="single" checked>
+                            <label for="parent-status-single">Single Parent/Guardian</label>
+                        </div>
+                        <div class="toggle-option">
+                            <input type="radio" id="parent-status-both" name="parent-status" value="both">
+                            <label for="parent-status-both">Both Parents/Guardians</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="primary-parent-section">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent-name" class="required-field">Full Name</label>
+                                <input type="text" id="parent-name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="relationship" class="required-field">Relationship to Student</label>
+                                <select id="relationship" class="form-control" required>
+                                    <option value="">Select Relationship</option>
+                                    <option value="Mother">Mother</option>
+                                    <option value="Father">Father</option>
+                                    <option value="Guardian">Guardian</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent-email" class="required-field">Email Address</label>
+                                <input type="email" id="parent-email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent-phone" class="required-field">Phone Number</label>
+                                <input type="tel" id="parent-phone" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent-occupation">Occupation</label>
+                                <input type="text" id="parent-occupation" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent-address" class="required-field">Address</label>
+                                <input type="text" id="parent-address" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="additional-parent-section" class="additional-parent">
+                    <h3 style="color: var(--primary-green); margin-bottom: 15px;">Additional Parent/Guardian Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent2-name">Full Name</label>
+                                <input type="text" id="parent2-name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="relationship2">Relationship to Student</label>
+                                <select id="relationship2" class="form-control">
+                                    <option value="">Select Relationship</option>
+                                    <option value="Mother">Mother</option>
+                                    <option value="Father">Father</option>
+                                    <option value="Guardian">Guardian</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent2-email">Email Address</label>
+                                <input type="email" id="parent2-email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent2-phone">Phone Number</label>
+                                <input type="tel" id="parent2-phone" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent2-occupation">Occupation</label>
+                                <input type="text" id="parent2-occupation" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="parent2-address">Address</label>
+                                <input type="text" id="parent2-address" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="next-of-kin-name" class="required-field">Next of Kin Full Name</label>
+                    <input type="text" id="next-of-kin-name" class="form-control" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="next-of-kin-relationship" class="required-field">Relationship to Student</label>
+                            <select id="next-of-kin-relationship" class="form-control" required>
+                                <option value="">Select Relationship</option>
+                                <option value="Aunt">Aunt</option>
+                                <option value="Uncle">Uncle</option>
+                                <option value="Grandparent">Grandparent</option>
+                                <option value="Sibling">Sibling</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="next-of-kin-phone" class="required-field">Phone Number</label>
+                            <input type="tel" id="next-of-kin-phone" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-nav">
+                    <button class="btn btn-outline prev-section" data-prev="student-section"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-primary next-section" data-next="academic-section">Next: Academic Background <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Academic Background Section -->
+            <div id="academic-section" class="form-section">
+                <div class="section-header">
+                    <h2>Academic Background</h2>
+                    <p>Please provide information about the student's previous education</p>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="previous-school">Previous School (if any)</label>
+                            <input type="text" id="previous-school" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="how-heard">How did you hear about us?</label>
+                            <select id="how-heard" class="form-control">
+                                <option value="">Select Option</option>
+                                <option value="Friend/Family">Friend/Family</option>
+                                <option value="Advertisement">Advertisement</option>
+                                <option value="Website">Website</option>
+                                <option value="Social Media">Social Media</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="special-needs">Any Special Needs or Medical Conditions?</label>
+                    <textarea id="special-needs" class="form-control"></textarea>
+                    <p class="form-note">Please provide details of any special educational needs, disabilities, or medical conditions we should be aware of.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additional-info">Additional Information</label>
+                    <textarea id="additional-info" class="form-control"></textarea>
+                    <p class="form-note">Please provide any other information you think would be relevant to the application.</p>
+                </div>
+                
+                <div class="form-nav">
+                    <button class="btn btn-outline prev-section" data-prev="parent-section"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-primary next-section" data-next="requirements-section">Next: Requirements <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Requirements Section -->
+            <div id="requirements-section" class="form-section">
+                <div class="section-header">
+                    <h2>Admission Requirements</h2>
+                    <p>Please review the required documents for admission</p>
+                </div>
+                
+                <div class="form-group">
+                    <p>The following documents are required for admission:</p>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Birth Certificate (copy)</li>
+                        <li>Previous School Report Cards (if applicable)</li>
+                        <li>Immunization Records</li>
+                        <li>Passport-sized Photograph</li>
+                        <li>Transfer Certificate (for students coming from other schools)</li>
+                    </ul>
+                    
+                    <p>These documents can be submitted:</p>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>In person at the school office</li>
+                        <li>Via email to admissions@schoolname.edu</li>
+                        <li>Uploaded through our online portal after submission</li>
+                    </ul>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" id="agree-terms" class="form-check-input" required>
+                        <label for="agree-terms" class="form-check-label required-field">I confirm that all information provided is accurate and complete. I understand that submission of this form does not guarantee admission.</label>
+                    </div>
+                </div>
+                
+                <div class="form-nav">
+                    <button class="btn btn-outline prev-section" data-prev="academic-section"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-primary next-section" data-next="preview-section">Review Application <i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+            
+            <!-- Preview Section -->
+            <div id="preview-section" class="form-section">
+                <div class="section-header">
+                    <h2>Review Your Application</h2>
+                    <p>Please review all information before submitting</p>
+                </div>
+                
+                <div id="alert-container">
+                    <div class="alert success" style="display: none;"></div>
+                    <div class="alert error" style="display: none;"></div>
+                </div>
+                
+                <div class="preview-content" id="form-preview">
+                    <!-- Preview content will be generated here by JavaScript -->
+                </div>
+                
+                <div class="form-nav">
+                    <button class="btn btn-outline prev-section" data-prev="requirements-section"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-secondary" id="download-pdf"><i class="fas fa-download"></i> Download PDF</button>
+                    <button class="btn btn-primary" id="submit-application"><span class="submit-text">Submit Application</span> <span class="loading-spinner"></span></button>
+                </div>
+            </div>
+            
+            <div class="form-footer">
+                <p>© 2023 Chapel Community Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Open form button
+            const openFormBtn = document.getElementById('open-form-btn');
+            const appFormContainer = document.getElementById('app-form-container');
+            const closeFormBtn = document.querySelector('.close-form');
+            
+            openFormBtn.addEventListener('click', function() {
+                appFormContainer.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                // Reset form to first section when opening
+                document.querySelectorAll('.form-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById('student-section').classList.add('active');
+            });
+            
+            closeFormBtn.addEventListener('click', function() {
+                appFormContainer.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close when clicking outside the form
+            appFormContainer.addEventListener('click', function(e) {
+                if (e.target === appFormContainer) {
+                    appFormContainer.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Populate commencing year dropdown
+            const yearSelect = document.getElementById('commencing-year');
+            const currentYear = new Date().getFullYear();
+            for (let year = currentYear; year <= currentYear + 5; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+                
+                // Set current year as default
+                if (year === currentYear) {
+                    option.selected = true;
+                }
+            }
+            
+            // Date of Birth validation - must be at least 1 month old
+            const dobInput = document.getElementById('student-dob');
+            dobInput.addEventListener('change', function() {
+                const dob = new Date(this.value);
+                const today = new Date();
+                const minDate = new Date();
+                minDate.setMonth(today.getMonth() - 1);
+                
+                if (dob > minDate) {
+                    showAlert('Student must be at least 1 month old', 'error');
+                    this.value = '';
+                }
+            });
+            
+            // Parent/Guardian toggle
+            const parentStatusRadios = document.querySelectorAll('input[name="parent-status"]');
+            const additionalParentSection = document.getElementById('additional-parent-section');
+            
+            parentStatusRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'both') {
+                        additionalParentSection.style.display = 'block';
+                    } else {
+                        additionalParentSection.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Section navigation
+            const nextButtons = document.querySelectorAll('.next-section');
+            const prevButtons = document.querySelectorAll('.prev-section');
+            
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentSection = this.closest('.form-section');
+                    const nextSectionId = this.getAttribute('data-next');
+                    
+                    // Validate current section before proceeding
+                    if (validateSection(currentSection.id)) {
+                        currentSection.classList.remove('active');
+                        document.getElementById(nextSectionId).classList.add('active');
+                        
+                        // If going to preview section, generate the preview
+                        if (nextSectionId === 'preview-section') {
+                            generatePreview();
+                        }
+                    }
+                });
+            });
+            
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentSection = this.closest('.form-section');
+                    const prevSectionId = this.getAttribute('data-prev');
+                    
+                    currentSection.classList.remove('active');
+                    document.getElementById(prevSectionId).classList.add('active');
+                });
+            });
+            
+            // Section validation
+            function validateSection(sectionId) {
+                let isValid = true;
+                const section = document.getElementById(sectionId);
+                const requiredFields = section.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = '#e74c3c';
+                        isValid = false;
+                        
+                        // Scroll to the first invalid field
+                        if (isValid === false) {
+                            field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    } else {
+                        field.style.borderColor = '#ddd';
+                    }
+                });
+                
+                // Special validation for terms checkbox
+                if (sectionId === 'requirements-section' && !document.getElementById('agree-terms').checked) {
+                    showAlert('You must agree to the terms and conditions', 'error');
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    showAlert('Please fill in all required fields', 'error');
+                }
+                
+                return isValid;
+            }
+            
+            // Generate preview
+            function generatePreview() {
+                const formData = collectFormData();
+                const previewContainer = document.getElementById('form-preview');
+                
+                // School header
+                let previewHTML = `
+                    <div class="preview-header">
+                        <div class="school-header">
+                            <img src="https://via.placeholder.com/80x80?text=School+Logo" alt="School Logo" class="school-logo">
+                            <div class="school-title">
+                                <h2>CHAPEL COMMUNITY ACADEMY</h2>
+                                <p>Excellence in Education</p>
+                            </div>
+                        </div>
+                        <div class="school-contact">
+                            <div class="contact-item"><i class="fas fa-map-marker-alt"></i> P.O. Box 17-20115, Egerton, Nakuru, Kenya</div>
+                            <div class="contact-item"><i class="fas fa-phone"></i> +254 712611899/799522418</div>
+                            <div class="contact-item"><i class="fas fa-envelope"></i> echapelschools@gmail.com</div>
+                        </div>
+                        <img src="https://via.placeholder.com/70x70?text=Coat+of+Arms" alt="Coat of Arms" class="coat-of-arms">
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3>STUDENT APPLICATION FORM</h3>
+                        <p>Application Date: ${formData.submissionDate}</p>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3>Student Information</h3>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Full Name:</span> ${formData.student.firstname} ${formData.student.lastname}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">Date of Birth:</span> ${formatDate(formData.student.dob)}</p>
+                            </div>
+                        </div>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Gender:</span> ${formData.student.gender}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">Grade Applying For:</span> ${formData.student.grade}</p>
+                            </div>
+                        </div>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Commencing:</span> ${formData.student.term}, ${formData.student.month} ${formData.student.year}</p>
+                            </div>
+                            <div class="preview-col">
+                                <!-- Empty for spacing -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3>Parent/Guardian Information</h3>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Full Name:</span> ${formData.parent.name}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">Relationship:</span> ${formData.parent.relationship}</p>
+                            </div>
+                        </div>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Email:</span> ${formData.parent.email}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">Phone:</span> ${formData.parent.phone}</p>
+                            </div>
+                        </div>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Occupation:</span> ${formData.parent.occupation || 'Not provided'}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">Address:</span> ${formData.parent.address || 'Not provided'}</p>
+                            </div>
+                        </div>
+                `;
+                
+                // Additional parent if available
+                if (formData.parent2 && formData.parent2.name) {
+                    previewHTML += `
+                        <h4 style="margin-top: 20px; color: var(--dark-green);">Additional Parent/Guardian</h4>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Full Name:</span> ${formData.parent2.name}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">Relationship:</span> ${formData.parent2.relationship}</p>
+                            </div>
+                        </div>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Email:</span> ${formData.parent2.email || 'Not provided'}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">Phone:</span> ${formData.parent2.phone || 'Not provided'}</p>
+                            </div>
+                        </div>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Occupation:</span> ${formData.parent2.occupation || 'Not provided'}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">Address:</span> ${formData.parent2.address || 'Not provided'}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Next of kin
+                previewHTML += `
+                        <h4 style="margin-top: 20px; color: var(--dark-green);">Next of Kin</h4>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Full Name:</span> ${formData.nextOfKin.name}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">Relationship:</span> ${formData.nextOfKin.relationship}</p>
+                            </div>
+                        </div>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Phone:</span> ${formData.nextOfKin.phone}</p>
+                            </div>
+                            <div class="preview-col">
+                                <!-- Empty for spacing -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3>Academic Background</h3>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Previous School:</span> ${formData.additional.previousSchool || 'Not applicable'}</p>
+                            </div>
+                            <div class="preview-col">
+                                <p><span class="preview-label">How You Heard About Us:</span> ${formData.additional.howHeard || 'Not specified'}</p>
+                            </div>
+                        </div>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Special Needs:</span> ${formData.additional.specialNeeds || 'None reported'}</p>
+                            </div>
+                        </div>
+                        <div class="preview-row">
+                            <div class="preview-col">
+                                <p><span class="preview-label">Additional Information:</span> ${formData.additional.additionalInfo || 'None provided'}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="official-use">
+                        <h3>FOR OFFICIAL USE ONLY</h3>
+                        <div class="form-group">
+                            <label>Admission Committee Comments:</label>
+                            <textarea class="form-control" style="background-color: white;" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Headteacher's Assessment:</label>
+                            <textarea class="form-control" style="background-color: white;" rows="4"></textarea>
+                        </div>
+                        
+                        <div class="signature-line">
+                            <div class="signature-box">
+                                <p>Admission Officer's Signature</p>
+                            </div>
+                            <div class="signature-box">
+                                <p>Headteacher's Signature</p>
+                            </div>
+                            <div class="signature-box">
+                                <p>Date: ___________________</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-footer" style="margin-top: 50px; text-align: center; font-size: 0.9em; color: #7f8c8d;">
+                        <p>Chapel Community Academy | Page 1 of 1</p>
+                        <p>© ${new Date().getFullYear()} Chapel Community Academy. All rights reserved.</p>
+                    </div>
+                `;
+                
+                previewContainer.innerHTML = previewHTML;
+            }
+            
+            // Collect form data
+            function collectFormData() {
+                const parentStatus = document.querySelector('input[name="parent-status"]:checked').value;
+                
+                const data = {
+                    student: {
+                        firstname: document.getElementById('student-firstname').value,
+                        lastname: document.getElementById('student-lastname').value,
+                        dob: document.getElementById('student-dob').value,
+                        gender: document.getElementById('gender').value,
+                        grade: document.getElementById('grade').value,
+                        term: document.getElementById('commencing-term').value,
+                        month: document.getElementById('commencing-month').value,
+                        year: document.getElementById('commencing-year').value
+                    },
+                    parent: {
+                        name: document.getElementById('parent-name').value,
+                        relationship: document.getElementById('relationship').value,
+                        email: document.getElementById('parent-email').value,
+                        phone: document.getElementById('parent-phone').value,
+                        occupation: document.getElementById('parent-occupation').value,
+                        address: document.getElementById('parent-address').value
+                    },
+                    nextOfKin: {
+                        name: document.getElementById('next-of-kin-name').value,
+                        relationship: document.getElementById('next-of-kin-relationship').value,
+                        phone: document.getElementById('next-of-kin-phone').value
+                    },
+                    additional: {
+                        previousSchool: document.getElementById('previous-school').value,
+                        howHeard: document.getElementById('how-heard').value,
+                        specialNeeds: document.getElementById('special-needs').value,
+                        additionalInfo: document.getElementById('additional-info').value
+                    },
+                    submissionDate: new Date().toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    })
+                };
+                
+                // Add additional parent if applicable
+                if (parentStatus === 'both') {
+                    data.parent2 = {
+                        name: document.getElementById('parent2-name').value,
+                        relationship: document.getElementById('relationship2').value,
+                        email: document.getElementById('parent2-email').value,
+                        phone: document.getElementById('parent2-phone').value,
+                        occupation: document.getElementById('parent2-occupation').value,
+                        address: document.getElementById('parent2-address').value
+                    };
+                }
+                
+                return data;
+            }
+            
+            // Format date for display
+            function formatDate(dateString) {
+                if (!dateString) return 'Not provided';
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            }
+            
+            // Show alert message
+            function showAlert(message, type) {
+                const alertContainer = document.getElementById('alert-container');
+                const alertDiv = alertContainer.querySelector(`.alert.${type}`);
+                
+                alertDiv.textContent = message;
+                alertDiv.style.display = 'block';
+                
+                setTimeout(() => {
+                    alertDiv.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Download PDF button
+            document.getElementById('download-pdf').addEventListener('click', function() {
+                const submitBtn = this;
+                const submitText = submitBtn.querySelector('span:first-child');
+                const loadingSpinner = submitBtn.querySelector('.loading-spinner');
+                
+                // Show loading state
+                submitText.textContent = 'Generating PDF';
+                loadingSpinner.style.display = 'inline-block';
+                submitBtn.disabled = true;
+                
+               
+                // Reset button state
+                setTimeout(() => {
+                    submitText.textContent = 'Download PDF';
+                    loadingSpinner.style.display = 'none';
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+            
+           // Replace the existing download button event listener with this:
+
+document.getElementById('download-pdf').addEventListener('click', function() {
+    const submitBtn = this;
+    const submitText = submitBtn.querySelector('span:first-child');
+    const loadingSpinner = submitBtn.querySelector('.loading-spinner');
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitText.textContent = 'Generating PDF';
+    loadingSpinner.style.display = 'inline-block';
+    
+    // Create a temporary container for PDF generation
+    const previewContent = document.getElementById('form-preview');
+    const tempContainer = document.createElement('div');
+    tempContainer.style.position = 'absolute';
+    tempContainer.style.left = '-9999px';
+    tempContainer.style.width = '800px';
+    tempContainer.style.padding = '20px';
+    tempContainer.style.fontSize = '12px';
+    
+    // Clone the content and apply PDF-specific styles
+    const clone = previewContent.cloneNode(true);
+    clone.style.width = '100%';
+    clone.style.margin = '0';
+    clone.style.padding = '0';
+    clone.style.boxShadow = 'none';
+    
+    // Remove elements that shouldn't be in PDF
+    const elementsToRemove = clone.querySelectorAll('button, .form-nav, .alert');
+    elementsToRemove.forEach(el => el.remove());
+    
+    tempContainer.appendChild(clone);
+    document.body.appendChild(tempContainer);
+    
+    // Use html2canvas + jsPDF to generate PDF
+    html2canvas(tempContainer, {
+        scale: 2,
+        logging: false,
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0
+    }).then(canvas => {
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const imgWidth = pdf.internal.pageSize.getWidth() - 20; // 10mm margins
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        // Add first page
+        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
+        
+        // Add additional pages if content is too long
+        let heightLeft = imgHeight - (pdf.internal.pageSize.getHeight() - 20);
+        let position = 10;
+        
+        while (heightLeft > 0) {
+            pdf.addPage();
+            position = heightLeft - imgHeight;
+            pdf.addImage(imgData, 'JPEG', 10, position, imgWidth, imgHeight);
+            heightLeft -= (pdf.internal.pageSize.getHeight() - 20);
+        }
+        
+        pdf.save('Chapel-Community-Academy-Application.pdf');
+    }).catch(error => {
+        console.error('Error generating PDF:', error);
+        showAlert('Error generating PDF. Please try again.', 'error');
+    }).finally(() => {
+        // Clean up
+        document.body.removeChild(tempContainer);
+        
+        // Reset button state
+        submitBtn.disabled = false;
+        submitText.textContent = 'Download PDF';
+        loadingSpinner.style.display = 'none';
+    });
+});
+            // Submit application
+            document.getElementById('submit-application').addEventListener('click', function() {
+                const submitBtn = this;
+                const submitText = submitBtn.querySelector('.submit-text');
+                const loadingSpinner = submitBtn.querySelector('.loading-spinner');
+                
+                // Validate terms agreement
+                if (!document.getElementById('agree-terms').checked) {
+                    showAlert('You must agree to the terms and conditions', 'error');
+                    return;
+                }
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitText.style.display = 'none';
+                loadingSpinner.style.display = 'inline-block';
+                
+                // Simulate form submission (in a real app, this would be an AJAX call)
+                setTimeout(() => {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    submitText.style.display = 'inline-block';
+                    loadingSpinner.style.display = 'none';
+                    
+                    // Show success message
+                    showAlert('Application submitted successfully! We will contact you soon.', 'success');
+                    
+                    // In a real implementation, you would redirect or reset the form
+                    // form.reset();
+                    // appFormContainer.style.display = 'none';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
