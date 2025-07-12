@@ -6,6 +6,8 @@
     <title>Admissions - Chapel Community Academy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* Global Styles - Enhanced */
         :root {
@@ -796,6 +798,14 @@
             }
         }
     </style>
+    <!-- Add this to your head section -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+<script>
+    // Initialize EmailJS with your user ID
+    (function() {
+        emailjs.init("IQUQtsJNXE4A2cwn_"); // Replace with your actual EmailJS user ID
+    })();
+</script>
 </head>
 <body>
     <!-- Header - Enhanced to match homepage -->
@@ -818,7 +828,7 @@
                     <li><a href="academics.html">Academics</a></li>
                     <li><a href="admissions.html" class="active">Admissions</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="admissions.html#application-form" class="btn btn-primary">Apply Now</a></li>
+                    <li><a href="application-form.html" class="btn btn-primary">Apply Now</a></li>
                 </ul>
             </nav>
             <div class="mobile-menu-btn">
@@ -832,7 +842,7 @@
         <div class="container hero-content">
             <h1>Begin Your Educational Journey</h1>
             <p>Join our community of learners and discover the Chapel Community Academy difference. Our admissions process is designed to be straightforward and supportive.</p>
-            <a href="#application-form" class="btn btn-primary">Apply Online</a>
+            <a href="application-form.html" class="btn btn-primary">Apply Online</a>
         </div>
     </section>
 
@@ -939,148 +949,9 @@
         </div>
     </section>
 
-    <!-- Application Form Section - Enhanced -->
-    <section id="application-form" class="form-section section-padding">
-        <div class="container">
-            <div class="form-container">
-                <div class="form-header">
-                    <h2>Online Application Form</h2>
-                    <p>Begin your journey with Chapel Community Academy</p>
-                </div>
-                
-                <form id="admission-form">
-                    <h3>Student Information</h3>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="student-firstname">First Name *</label>
-                            <input type="text" id="student-firstname" class="form-control" required>
-                        </div>
-                        <div class="form-col">
-                            <label for="student-lastname">Last Name *</label>
-                            <input type="text" id="student-lastname" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="student-dob">Date of Birth *</label>
-                            <input type="date" id="student-dob" class="form-control" required>
-                        </div>
-                        <div class="form-col">
-                            <label for="gender">Gender *</label>
-                            <select id="gender" class="form-control" required>
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="grade">Applying for Grade *</label>
-                            <select id="grade" class="form-control" required>
-                                <option value="">Select Grade Level</option>
-                                <option value="daycare">Daycare</option>
-                                <option value="preschool">Preschool</option>
-                                <option value="kindergarten">Kindergarten</option>
-                                <option value="pp1">PP1</option>
-                                <option value="pp2">PP2</option>
-                            </select>
-                        </div>
-                        <div class="form-col">
-                            <label for="start-term">Preferred Start Term *</label>
-                            <select id="start-term" class="form-control" required>
-                                <option value="">Select Term</option>
-                                <option value="january">January Intake</option>
-                                <option value="may">May Intake</option>
-                                <option value="september">September Intake</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <h3>Parent/Guardian Information</h3>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="parent-name">Full Name *</label>
-                            <input type="text" id="parent-name" class="form-control" required>
-                        </div>
-                        <div class="form-col">
-                            <label for="relationship">Relationship to Student *</label>
-                            <select id="relationship" class="form-control" required>
-                                <option value="">Select Relationship</option>
-                                <option value="mother">Mother</option>
-                                <option value="father">Father</option>
-                                <option value="guardian">Guardian</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="parent-email">Email *</label>
-                            <input type="email" id="parent-email" class="form-control" required>
-                        </div>
-                        <div class="form-col">
-                            <label for="parent-phone">Phone *</label>
-                            <input type="tel" id="parent-phone" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="parent-occupation">Occupation</label>
-                            <input type="text" id="parent-occupation" class="form-control">
-                        </div>
-                        <div class="form-col">
-                            <label for="parent-company">Employer/Company</label>
-                            <input type="text" id="parent-company" class="form-control">
-                        </div>
-                    </div>
-                    
-                    <h3>Additional Information</h3>
-                    <div class="form-group">
-                        <label for="previous-school">Previous School (if applicable)</label>
-                        <input type="text" id="previous-school" class="form-control">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="how-heard">How did you hear about us? *</label>
-                        <select id="how-heard" class="form-control" required>
-                            <option value="">Select Option</option>
-                            <option value="friend">Friend/Family</option>
-                            <option value="website">School Website</option>
-                            <option value="social">Social Media</option>
-                            <option value="event">School Event</option>
-                            <option value="advertisement">Advertisement</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="special-needs">Does your child have any special needs or considerations we should know about?</label>
-                        <textarea id="special-needs" class="form-control"></textarea>
-                        <p class="form-note">We accommodate diverse learning needs and will contact you to discuss support options.</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="additional-info">Additional Information</label>
-                        <textarea id="additional-info" class="form-control"></textarea>
-                        <p class="form-note">Please share anything else you'd like us to know about your child or family.</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="checkbox" id="agree-terms" required>
-                        <label for="agree-terms">I agree to the terms and conditions of the application process *</label>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary submit-btn">Submit Application</button>
-                </form>
-            </div>
-        </div>
-    </section>
+   
+
+
 
     <!-- FAQs Section - Enhanced -->
     <section class="faqs-section section-padding">
